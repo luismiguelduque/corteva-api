@@ -1,0 +1,15 @@
+# Large media files
+*.mp4
+*.tiff
+*.avi
+*.flv
+*.mov
+*.wmv
+
+#Custom Files/folders
+
+/vendor
+.env
+
+# Uploads
+public/uploads/users/

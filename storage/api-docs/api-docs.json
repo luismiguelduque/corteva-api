@@ -1,0 +1,408 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Corteva API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/auth/register": {
+            "post": {
+                "tags": [
+                    "Authentication (Autenticación)"
+                ],
+                "summary": "Almacena un nuevo registro de usuario.",
+                "operationId": "356f433a02417d3e5539fa0b0863d1a3",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Nombre del usuario.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Correo electrónico del usuario.",
+                        "required": true,
+                        "schema": {
+                            "type": "email, string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Contraseña del usuario.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "query",
+                        "description": "Verificación de contraseña del usuario (Mismo valor del campo <password>).",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Registro completado con éxito."
+                    },
+                    "default": {
+                        "description": "Unexpected error"
+                    }
+                }
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Authentication (Autenticación)"
+                ],
+                "summary": "Iniciar sesión.",
+                "operationId": "d4828165b58a6838d25dfabb5f1cade2",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Correo electrónico del usuario.",
+                        "required": true,
+                        "schema": {
+                            "type": "email, string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Contraseña del usuario.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sesión iniciada."
+                    },
+                    "404": {
+                        "description": "Las credenciales no coinciden."
+                    },
+                    "default": {
+                        "description": "Unexpected error"
+                    }
+                }
+            }
+        },
+        "/api/auth/me": {
+            "get": {
+                "tags": [
+                    "Authentication (Autenticación)"
+                ],
+                "summary": "Información del usuario autenticado en sistema.",
+                "operationId": "0b902f819acc157e9d2f55ae16cd347f",
+                "responses": {
+                    "200": {
+                        "description": "Success."
+                    },
+                    "default": {
+                        "description": "Unexpected error"
+                    }
+                }
+            }
+        },
+        "/api/auth/logout": {
+            "post": {
+                "tags": [
+                    "Authentication (Autenticación)"
+                ],
+                "summary": "Cerrar sesión.",
+                "operationId": "ee74699890a7b09b51681e8c305ef4dc",
+                "responses": {
+                    "200": {
+                        "description": "Sesión finalizada."
+                    },
+                    "default": {
+                        "description": "Unexpected error"
+                    }
+                }
+            }
+        },
+        "/api/auth/change-password": {
+            "post": {
+                "tags": [
+                    "Authentication (Autenticación)"
+                ],
+                "summary": "Cambia la contraseña del usuario en sesión.",
+                "operationId": "f5b1bb7180b603b7b3f4b4558bc91a94",
+                "parameters": [
+                    {
+                        "name": "current_password",
+                        "in": "query",
+                        "description": "Contraseña actual.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "new_password",
+                        "in": "query",
+                        "description": "Contraseña nueva",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "repeat_new_password",
+                        "in": "query",
+                        "description": "Repetir nueva contraseña",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Contraseña actualizada con éxito."
+                    },
+                    "default": {
+                        "description": "Unexpected error"
+                    }
+                }
+            }
+        },
+        "/api/roles": {
+            "get": {
+                "tags": [
+                    "Roles (Roles)"
+                ],
+                "summary": "Obtiene un listado de los roles",
+                "operationId": "afb63c7cdead11f7b67c90884ca32bc0",
+                "responses": {
+                    "200": {
+                        "description": "Roles recuperados con éxito."
+                    },
+                    "default": {
+                        "description": "Unexpected error"
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "Users (Usuarios)"
+                ],
+                "summary": "Obtiene un listado de los usuarios",
+                "operationId": "baeb69135655e73e96f7f4472672f239",
+                "parameters": [
+                    {
+                        "name": "status_id",
+                        "in": "query",
+                        "description": "Identificador (ID) de Estado de usuarios a listar. Puede cargar un único ID, Ej: 1 / O Cargar un arreglo de IDs, Ej: [1, 2, 3, 4, 5].",
+                        "required": false,
+                        "schema": {
+                            "type": "integer, array integer"
+                        }
+                    },
+                    {
+                        "name": "role_name",
+                        "in": "query",
+                        "description": "Nombre del Rol por el cual se filtrarán los usuarios a listar. Puede cargar un único nombre, Ej: rol1 / O Cargar un arreglo de IDs, Ej: [rol1, rol2, rol3, rol4, rol5].",
+                        "required": false,
+                        "schema": {
+                            "type": "string, array string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuarios recuperados con éxito."
+                    },
+                    "default": {
+                        "description": "Unexpected error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Users (Usuarios)"
+                ],
+                "summary": "Almacena un nuevo registro de usuario.",
+                "operationId": "9707dc7a9082a9472b9a0ba25948cf67",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Nombre del usuario.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Correo electrónico del usuario.",
+                        "required": true,
+                        "schema": {
+                            "type": "email, string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Contraseña del usuario.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "query",
+                        "description": "Verificación de contraseña del usuario (Mismo valor del campo <password>).",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Estado del usuario.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "role_id",
+                        "in": "query",
+                        "description": "Rol para ser asociado al usuario. (Admite un Integer o un Array de Integer)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer, array integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuario almacenado con éxito."
+                    },
+                    "default": {
+                        "description": "Unexpected error"
+                    }
+                }
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "tags": [
+                    "Users (Usuarios)"
+                ],
+                "summary": "Obtiene los datos de un usuario en particular.",
+                "operationId": "d82a528e4d6c2973c0b9f1a48db5289e",
+                "responses": {
+                    "200": {
+                        "description": "Usuario recuperado con éxito."
+                    },
+                    "404": {
+                        "description": "Registro no encontrado."
+                    },
+                    "default": {
+                        "description": "Unexpected error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Users (Usuarios)"
+                ],
+                "summary": "Elimina el registro de un usuario en particular.",
+                "operationId": "c06d2caa99e092741d3fa0eeaa2937cd",
+                "responses": {
+                    "200": {
+                        "description": "Usuario eliminado con éxito."
+                    },
+                    "404": {
+                        "description": "Registro no encontrado."
+                    },
+                    "default": {
+                        "description": "Unexpected error"
+                    }
+                }
+            }
+        },
+        "/api/users-update": {
+            "post": {
+                "tags": [
+                    "Users (Usuarios)"
+                ],
+                "summary": "Actualiza los datos de un usuario en particular.",
+                "operationId": "41d9d61fe6a4bd754cd90a705b733c04",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Nombre del usuario.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Correo electrónico del usuario.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Estado del usuario.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "role_id",
+                        "in": "query",
+                        "description": "Rol para ser asociado al usuario. (Admite un Integer o un Array de Integer)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer, array integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuario actualizado con éxito."
+                    },
+                    "404": {
+                        "description": "Registro no encontrado."
+                    },
+                    "default": {
+                        "description": "Unexpected error"
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
